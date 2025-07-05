@@ -1,16 +1,24 @@
 import { Link } from "expo-router";
 import { View, Text } from "@/components/general/Themed";
+import CustomButton from "@/components/general/CustomButton";
+import { FlatList } from "react-native";
+import workouts from "@/data/dummyWorkouts";
+import WorkoutListItem from "@/components/workouts/WorkoutListItem";
 
 export default function HomeScreen() {
   return (
-    <View style={{ flex: 1, alignItems: "center", gap: 10 }}>
-      <Link href="/workout/current">
-        <Text>Resume Current Workout</Text>
+    <View
+      style={{ flex: 1, gap: 10, padding: 10, backgroundColor: "transparent" }}
+    >
+      <Link href="/workout/current" asChild>
+        <CustomButton title="Resume workout" />
       </Link>
-      <Link href="/workout/123">
-        <Text>Open with id 123</Text>
-      </Link>
-      <Text>Home Screen</Text>
+      <FlatList
+        data={workouts}
+        contentContainerStyle={{ gap: 8 }}
+        renderItem={({ item }) => <WorkoutListItem workout={item} />}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 }
