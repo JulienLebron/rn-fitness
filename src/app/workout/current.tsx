@@ -1,4 +1,3 @@
-import { View, Text } from "@/components/general/Themed";
 import WorkoutExerciseItem from "@/components/logger/WorkoutExerciseItem";
 import { FlatList, KeyboardAvoidingView, Platform } from "react-native";
 
@@ -12,6 +11,8 @@ import { useWorkouts } from "@/store";
 export default function CurrentWorkoutScreen() {
   const currentWorkout = useWorkouts((state) => state.currentWorkout);
   const finishWorkout = useWorkouts((state) => state.finishWorkout);
+  const addExercise = useWorkouts((state) => state.addExercise);
+
   const headerHeight = useHeaderHeight();
 
   if (!currentWorkout) {
@@ -37,15 +38,13 @@ export default function CurrentWorkoutScreen() {
         keyboardVerticalOffset={headerHeight}
       >
         <FlatList
-          data={[1, 2, 3]}
+          data={currentWorkout.exercises}
           contentContainerStyle={{ gap: 10, padding: 10 }}
-          renderItem={() => <WorkoutExerciseItem />}
+          renderItem={({ item }) => <WorkoutExerciseItem exercise={item} />}
           ListHeaderComponent={<WorkoutHeader />}
           ListFooterComponent={
             <SelectExerciseModal
-              onSelectExercise={(name) =>
-                console.warn("Exercise seleted: ", name)
-              }
+              onSelectExercise={(name) => addExercise(name)}
             />
           }
         />
