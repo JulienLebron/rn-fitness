@@ -1,5 +1,5 @@
 import { ExerciseWithSets } from "@/types/models";
-import { getSetTotalWeight } from "@/services/setService";
+import { createSet, getSetTotalWeight } from "@/services/setService";
 import * as Crypto from "expo-crypto";
 
 export const getExerciseTotalWeight = (exercise: ExerciseWithSets) => {
@@ -16,6 +16,9 @@ export const createExercise = (name: string, workoutId: string) => {
     workoutId,
     sets: [],
   };
+
+  // add one empty set
+  newExercise.sets.push(createSet(newExercise.id));
 
   return newExercise;
 };
