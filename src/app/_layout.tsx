@@ -17,10 +17,6 @@ DarkTheme.colors.primary = Colors.dark.tint;
 DefaultTheme.colors.primary = Colors.light.tint;
 
 const db = SQLite.openDatabaseSync(dbName);
-
-// remove later
-getDB();
-
 // SQLite.deleteDatabaseSync(dbName);
 
 export default function RootLayout() {
